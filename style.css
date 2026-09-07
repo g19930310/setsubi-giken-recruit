@@ -211,7 +211,12 @@ h1,h2,h3,p{margin-top:0}
   .reason>img{grid-column:1/-1;height:190px;border-radius:9px}
 }
 @media (min-width:761px) and (max-width:1000px){
+  .hero{min-height:1080px}
+  .hero__inner{min-height:1080px}
   .hero h1{font-size:50px}
+  .hero__copy .lead{font-size:15px;margin:22px 0 6px}
+  .hero__text{font-size:14px;line-height:1.75}
+  .benefits{bottom:16px}
   .reason{grid-template-columns:105px 1fr 230px}
   .reason__body h3{font-size:24px}
   .reason>img{height:190px}
