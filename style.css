@@ -72,6 +72,7 @@ h1,h2,h3,p{margin-top:0}
   width:46%;height:43%;right:-1%;top:38%;
   clip-path:polygon(26% 0,100% 0,100% 100%,0 100%,13% 16%);
 }
+.photo--woman img{object-position:center 15%;}
 .benefits{
   position:absolute;z-index:5;left:0;right:0;bottom:28px;
   display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
@@ -169,6 +170,7 @@ h1,h2,h3,p{margin-top:0}
   .hero__people{position:relative;inset:auto;height:300px;margin-top:18px}
   .photo--worker{width:86%;height:67%;right:-6%;top:0;clip-path:polygon(19% 0,100% 0,100% 100%,0 100%,10% 50%)}
   .photo--woman{width:70%;height:64%;right:0;top:36%;clip-path:polygon(23% 0,100% 0,100% 100%,0 100%,12% 15%)}
+  .photo--woman img{object-position:center 15%}
   .benefits{position:relative;left:auto;right:auto;bottom:auto;grid-template-columns:1fr;gap:8px;margin-top:8px}
   .benefit{padding:11px 14px;border-radius:10px}
   .benefit__icon{flex-basis:43px;width:43px;height:43px;font-size:20px}
