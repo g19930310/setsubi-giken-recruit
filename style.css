@@ -74,7 +74,7 @@ h1,h2,h3,p{margin-top:0}
 }
 .photo--woman img{object-position:center 15%;}
 .benefits{
-  position:absolute;z-index:5;left:0;right:0;bottom:28px;
+  position:relative;z-index:5;margin-top:36px;
   display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
 }
 .benefit{
