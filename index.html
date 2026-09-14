@@ -1090,5 +1090,54 @@
   <!-- LP CONTENT END -->
 </main>
   <script src="./js/main.js" defer></script>
+
+  <!-- Supabase連携：CMSで編集した文章をページに反映するスクリプト -->
+  <script>
+    (async function () {
+      const SUPABASE_URL = "https://ifquxxwvloqxbaeoitos.supabase.co";
+      const SUPABASE_ANON_KEY = "sb_publishable_cH1wKeeqENGqkbFbsekDtQ_2ZFOrKla";
+      const TABLE_NAME = "site_content";
+
+      try {
+        const response = await fetch(
+          `${SUPABASE_URL}/rest/v1/${TABLE_NAME}?select=content_key,value`,
+          {
+            headers: {
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${SUPABASE_ANON_KEY}`
+            }
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            `Supabaseからのデータ取得に失敗しました: ${response.status} ${response.statusText}`
+          );
+        }
+
+        const rows = await response.json();
+
+        // content_key -> value のマップを作成
+        const contentMap = {};
+        rows.forEach((row) => {
+          contentMap[row.content_key] = row.value;
+        });
+
+        // data-content-key を持つ要素を全部探して、対応するvalueで書き換える
+        document.querySelectorAll("[data-content-key]").forEach((el) => {
+          const key = el.getAttribute("data-content-key");
+          if (Object.prototype.hasOwnProperty.call(contentMap, key)) {
+            const value = contentMap[key] ?? "";
+            // データ保存時に改行(<br>)は\nに変換しているため、表示時に<br>へ戻す
+            el.innerHTML = value.replace(/\n/g, "<br>");
+          }
+        });
+
+        console.log(`Supabaseから${rows.length}件のテキストを反映しました。`);
+      } catch (error) {
+        console.log("Supabase接続エラー:", error);
+      }
+    })();
+  </script>
 </body>
 </html>
