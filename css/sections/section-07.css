@@ -1,0 +1,60 @@
+/* SECTION 07｜求人情報詳細 */
+.jobs-detail {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(34px, 4.5vw, 64px) clamp(18px, 3vw, 40px) clamp(42px, 5vw, 70px);
+  background:
+    radial-gradient(circle at 88% 7%, rgba(81,169,226,.12), transparent 25%),
+    linear-gradient(180deg,#eff9fd 0%,#eef8fc 100%);
+}
+.jobs-detail::before {
+  content:"";
+  position:absolute; inset:0; pointer-events:none;
+  background-image: radial-gradient(circle, rgba(19,111,179,.17) 1px, transparent 1.5px);
+  background-size: 18px 18px;
+  mask-image: linear-gradient(90deg, transparent 0 78%, #000 88% 100%);
+  opacity:.55;
+}
+.jobs-detail__inner { position:relative; z-index:1; }
+.jobs-detail__label { color:#12a6d8; font-size:clamp(12px,1.2vw,16px); font-weight:900; letter-spacing:.04em; }
+.jobs-detail__title { margin-top:2px; color:#064b8f; font-size:clamp(34px,4.1vw,58px); font-weight:900; line-height:1.15; }
+.jobs-detail__underline { width:clamp(52px,6vw,80px); height:4px; margin:14px 0 28px; background:linear-gradient(90deg,#0554a2 0 62%,#22afe1 62% 100%); }
+.jobs-detail__grid { display:grid; grid-template-columns: .96fr .92fr .98fr; gap:clamp(14px,1.7vw,22px); align-items:stretch; }
+.jobs-detail__left, .jobs-detail__right { display:grid; gap:12px; }
+.job-info-card, .requirements-card {
+  background:rgba(255,255,255,.97);
+  border:1px solid rgba(7,82,145,.08);
+  border-radius:12px;
+  box-shadow:0 7px 18px rgba(10,75,120,.09);
+}
+.job-info-card { display:grid; grid-template-columns:68px 1fr; gap:14px; padding:14px 16px; align-items:start; }
+.job-info-card--tall { padding-block:15px; }
+.job-info-card__icon { display:grid; place-items:center; width:52px; height:52px; border-radius:999px; background:#0758a8; }
+.job-info-card__icon img { width:32px; height:32px; object-fit:contain; }
+.job-info-card__content { display:grid; grid-template-columns:auto 1fr; column-gap:16px; align-items:start; }
+.job-info-card__content h3 { margin:4px 0 2px; color:#0752a0; font-size:clamp(16px,1.5vw,21px); font-weight:900; white-space:nowrap; }
+.job-info-card__content > p, .job-info-card__content > ul { grid-column:2; }
+.job-info-card__content p { color:#0752a0; font-size:clamp(13px,1.14vw,16px); line-height:1.55; font-weight:750; }
+.job-info-card__content ul { margin:0; padding-left:1.1em; color:#0752a0; font-size:clamp(12px,1.05vw,15px); line-height:1.55; font-weight:700; }
+.job-info-card__note { color:#11639f !important; font-size:clamp(11px,.98vw,14px)!important; }
+.requirements-card { padding:16px 18px 18px; }
+.requirements-card__head { display:flex; gap:12px; align-items:center; margin-bottom:10px; }
+.requirements-card__head img { width:46px; height:46px; object-fit:contain; }
+.requirements-card__head h3 { color:#0752a0; font-size:clamp(18px,1.6vw,22px); font-weight:900; }
+.requirements-card__body { color:#0752a0; font-size:clamp(12px,1.05vw,15px); line-height:1.55; font-weight:700; }
+.requirements-card__body h4 { margin:10px 0 2px; font-size:1em; }
+.requirements-card__body p { margin:0; }
+.requirements-card__body small { font-size:.78em; font-weight:650; }
+.requirements-card__body ul { margin:4px 0 0; padding-left:1.15em; }
+
+@media (max-width: 980px) {
+  .jobs-detail__grid { grid-template-columns:1fr 1fr; }
+  .requirements-card { grid-column:1/-1; order:3; }
+}
+@media (max-width: 680px) {
+  .jobs-detail__grid { grid-template-columns:1fr; }
+  .requirements-card { grid-column:auto; order:initial; }
+  .job-info-card__content { grid-template-columns:1fr; }
+  .job-info-card__content > p, .job-info-card__content > ul { grid-column:1; }
+  .job-info-card__content h3 { white-space:normal; }
+}

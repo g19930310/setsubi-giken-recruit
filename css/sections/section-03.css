@@ -1,0 +1,156 @@
+/* SECTION 03｜設備技研が選ばれる理由 */
+.reasons-section {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(32px, 5.4vw, 78px) clamp(18px, 3.7vw, 54px) clamp(44px, 6.5vw, 94px);
+  background:
+    radial-gradient(circle at 84% 4%, rgba(52, 153, 223, .17), transparent 31%),
+    radial-gradient(circle at 8% 40%, rgba(86, 174, 225, .09), transparent 30%),
+    linear-gradient(180deg, #f4fbff 0%, #eef8fd 100%);
+}
+.reasons-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .35;
+  background-image: radial-gradient(circle, rgba(13, 108, 176, .22) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(90deg, #000 0, transparent 22%, transparent 78%, #000 100%);
+}
+.reasons-section__hero,
+.reasons-section__list { position: relative; z-index: 1; }
+.reasons-section__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(360px, .95fr);
+  min-height: clamp(250px, 28vw, 390px);
+  margin-bottom: clamp(18px, 2vw, 28px);
+}
+.reasons-section__hero-copy {
+  align-self: center;
+  padding: clamp(8px, 2vw, 28px) clamp(12px, 2.8vw, 40px) clamp(18px, 3vw, 44px) 0;
+}
+.reasons-section__label {
+  margin-bottom: clamp(18px, 2.2vw, 30px);
+  color: #084d8e;
+  font-size: clamp(12px, 1.35vw, 17px);
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+.reasons-section__title {
+  display: grid;
+  gap: clamp(8px, 1vw, 14px);
+  color: #111;
+  font-size: clamp(28px, 3.55vw, 52px);
+  font-weight: 900;
+  line-height: 1.28;
+  letter-spacing: .03em;
+}
+.reasons-section__title-accent { color: #064d92; }
+.reasons-section__underline {
+  width: clamp(42px, 5vw, 72px);
+  height: 4px;
+  margin-top: clamp(18px, 2vw, 30px);
+  background: #0d62ad;
+}
+.reasons-section__hero-visual { position: relative; min-height: 100%; }
+.reasons-section__hero-photo { position: absolute; overflow: hidden; margin: 0; }
+.reasons-section__hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+.reasons-section__hero-photo--male {
+  inset: 0 24% 0 0;
+  clip-path: polygon(27% 0, 100% 0, 77% 100%, 0 100%);
+}
+.reasons-section__hero-photo--male img { object-position: 52% 34%; }
+.reasons-section__hero-photo--female {
+  inset: 18% -3% 0 60%;
+  clip-path: polygon(26% 0, 100% 0, 100% 100%, 0 100%);
+}
+.reasons-section__hero-photo--female img { object-position: 50% 44%; }
+.reasons-section__hero-ribbon {
+  position: absolute;
+  width: 42%;
+  height: 34%;
+  top: -9%;
+  right: -6%;
+  transform: skewX(-27deg) rotate(-1deg);
+  background: linear-gradient(135deg, #0e5ebb 0%, #0265c3 55%, #052f8d 100%);
+  clip-path: polygon(35% 0, 100% 0, 68% 100%, 0 100%);
+}
+.reasons-section__list { display: grid; gap: clamp(16px, 1.8vw, 26px); }
+.reason-card {
+  display: grid;
+  grid-template-columns: clamp(130px, 14.5vw, 194px) minmax(0, 1fr) clamp(230px, 28vw, 390px);
+  min-height: clamp(215px, 23vw, 330px);
+  background: rgba(255, 255, 255, .96);
+  border: 1px solid rgba(5, 83, 143, .08);
+  border-radius: 14px;
+  box-shadow: 0 8px 22px rgba(13, 75, 120, .10);
+  overflow: hidden;
+}
+.reason-card__index {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(25px, 2.7vw, 38px) clamp(16px, 1.8vw, 26px);
+  color: #0754a0;
+}
+.reason-card__index::after {
+  content: "";
+  position: absolute;
+  top: 12%; bottom: 12%; right: 0;
+  width: 1px;
+  background: #c9dbea;
+}
+.reason-card__eyebrow { align-self: flex-start; font-size: clamp(11px, 1vw, 14px); font-weight: 800; letter-spacing: .04em; }
+.reason-card__number { align-self: flex-start; margin-top: 1px; font-size: clamp(40px, 4.2vw, 62px); font-weight: 900; line-height: 1; }
+.reason-card__icon { width: clamp(66px, 7vw, 104px); height: clamp(66px, 7vw, 104px); margin-top: auto; object-fit: contain; }
+.reason-card__content { align-self: center; padding: clamp(24px, 3.2vw, 44px) clamp(24px, 3.2vw, 46px); }
+.reason-card__content h3 { margin: 0 0 clamp(17px, 1.8vw, 26px); color: #064b8f; font-size: clamp(22px, 2.35vw, 34px); font-weight: 900; line-height: 1.28; }
+.reason-card__body { display: grid; gap: clamp(6px, .65vw, 10px); color: #111; font-size: clamp(13px, 1.3vw, 18px); font-weight: 650; line-height: 1.65; }
+.reason-card__photo { height: 100%; padding: clamp(14px, 1.5vw, 21px); margin: 0; }
+.reason-card__photo img { width: 100%; height: 100%; min-height: 190px; object-fit: cover; border-radius: 6px; }
+#reason-01 .reason-card__photo img { object-position: 50% 42%; }
+#reason-02 .reason-card__photo img { object-position: 50% 48%; }
+#reason-03 .reason-card__photo img { object-position: 51% 37%; }
+#reason-04 .reason-card__photo img { object-position: 50% 43%; }
+#reason-05 .reason-card__photo img { object-position: 50% 50%; }
+
+@media (max-width: 860px) {
+  .reasons-section { padding-inline: clamp(16px, 5vw, 28px); }
+  .reasons-section__hero { grid-template-columns: 1fr; }
+  .reasons-section__hero-copy { padding-right: 0; }
+  .reasons-section__hero-visual { min-height: 310px; margin-inline: -8px; }
+  .reasons-section__hero-photo--male { inset: 0 28% 0 0; }
+  .reasons-section__hero-photo--female { inset: 22% -2% 0 58%; }
+  .reason-card { grid-template-columns: 104px minmax(0, 1fr) 230px; }
+  .reason-card__content { padding-inline: 22px; }
+}
+@media (max-width: 680px) {
+  .reasons-section__hero-visual { min-height: 260px; }
+  .reason-card {
+    grid-template-columns: 90px minmax(0, 1fr);
+    grid-template-areas:
+      "index content"
+      "photo photo";
+  }
+  .reason-card__index { grid-area: index; padding: 22px 12px 18px; }
+  .reason-card__content { grid-area: content; padding: 22px 18px; }
+  .reason-card__photo { grid-area: photo; height: 220px; padding: 0 14px 14px; }
+  .reason-card__index::after { top: 8%; bottom: 8%; }
+  .reason-card__icon { width: 64px; height: 64px; }
+  .reason-card__body { font-size: 13px; }
+}
+@media (max-width: 430px) {
+  .reasons-section__title { font-size: clamp(25px, 8.6vw, 36px); }
+  .reasons-section__hero-visual { min-height: 220px; }
+  .reasons-section__hero-photo--male { inset: 0 25% 0 0; }
+  .reasons-section__hero-photo--female { inset: 26% -8% 0 56%; }
+  .reason-card { grid-template-columns: 76px minmax(0, 1fr); }
+  .reason-card__eyebrow { font-size: 9px; }
+  .reason-card__number { font-size: 34px; }
+  .reason-card__icon { width: 54px; height: 54px; }
+  .reason-card__content h3 { font-size: 20px; }
+  .reason-card__content { padding: 20px 14px; }
+  .reason-card__photo { height: 190px; }
+}

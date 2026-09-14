@@ -1,0 +1,21 @@
+/* 共通設定：以降のセクションでも共有します。 */
+:root {
+  --color-primary: #034589;
+  --color-primary-deep: #003573;
+  --color-accent: #008bd0;
+  --color-label: #42afe0;
+  --color-on-blue: #ffffff;
+  --color-card-text: #064589;
+  --color-surface: #ffffff;
+  --page-background: #eef7fc;
+  --page-max-width: 1440px;
+  --font-sans: "Noto Sans JP", "Noto Sans CJK JP", "Hiragino Sans",
+               "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--page-background); -webkit-text-size-adjust: 100%; }
+body { margin: 0; font-family: var(--font-sans); color: var(--color-card-text); -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; height: auto; }
+figure, h1, h2, p { margin: 0; }
+.lp { width: 100%; max-width: var(--page-max-width); margin-inline: auto; container-type: inline-size; }
+::selection { color: #fff; background: #0085c7; }

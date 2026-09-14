@@ -1,0 +1,56 @@
+/* SECTION 09 */
+.message-section {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(34px, 4.8vw, 70px) clamp(16px, 3vw, 44px) clamp(24px, 3.4vw, 40px);
+  background: linear-gradient(180deg, #eef8fd 0%, #edf7fc 100%);
+}
+.message-section::before,
+.message-section::after{content:"";position:absolute;inset:0;pointer-events:none}
+.message-section::before{
+  background:
+    linear-gradient(180deg, rgba(0,88,162,.08), rgba(255,255,255,0) 42%),
+    radial-gradient(circle at 86% 14%, rgba(73, 169, 232, .14), transparent 21%),
+    radial-gradient(circle at 12% 70%, rgba(73,169,232,.12), transparent 28%);
+}
+.message-section::after{
+  background-image: radial-gradient(circle, rgba(13, 108, 176, .18) 1px, transparent 1.4px);
+  background-size: 18px 18px;
+  mask-image: linear-gradient(90deg, transparent 0, transparent 80%, #000 90%, #000 100%);
+  opacity: .45;
+}
+.message-section__inner{position:relative;z-index:1}
+.message-section__label{color:#1a9fe6;font-size:clamp(12px,1.2vw,16px);font-weight:800;letter-spacing:.05em;margin-bottom:10px}
+.message-section__title{display:inline-block;color:#fff;font-size:clamp(22px,3vw,42px);font-weight:900;line-height:1.2;background:linear-gradient(90deg,#0a78dd 0%,#0856b6 100%);padding:12px 24px 14px;border-radius:0 10px 10px 0;clip-path:polygon(0 0,93% 0,100% 50%,93% 100%,0 100%)}
+.message-grid{display:grid;grid-template-columns:1.03fr .97fr;gap:clamp(16px,2vw,26px);margin-top:18px;align-items:stretch}
+.message-card{position:relative;min-height:430px;overflow:hidden}
+.message-card__copy{position:relative;z-index:2}
+.message-card--primary{display:grid;grid-template-columns:minmax(0,1fr) 250px;align-items:stretch}
+.message-card--primary .message-card__copy{background:linear-gradient(180deg,#005cca 0%,#0d4ea1 100%);color:#fff;padding:18px 24px 22px;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+.message-card--primary .message-card__banner{position:absolute;left:0;top:82px;width:56%;height:18px;background:white;opacity:.97;clip-path:polygon(0 0,98% 0,93% 100%,0 100%);z-index:1}
+.message-card--primary .message-card__photo{margin:0;min-height:100%;clip-path:polygon(20% 0,100% 0,80% 100%,0 100%)}
+.message-card--secondary{display:grid;grid-template-columns:minmax(0,1fr) 220px;align-items:end}
+.message-card--secondary .message-card__copy{background:rgba(255,255,255,.93);padding:26px 24px 24px;border-radius:14px;box-shadow:0 10px 26px rgba(7,74,124,.08);clip-path:polygon(9% 0,100% 0,88% 100%,0 100%)}
+.message-card--secondary .message-card__photo{margin:0;align-self:end;transform:translateX(-8px)}
+.message-card__role{display:inline-block;margin:0 0 16px;padding:8px 16px;border-radius:10px;color:#fff;background:linear-gradient(90deg,#0a78dd 0%,#0856b6 100%);font-size:clamp(14px,1.3vw,22px);font-weight:800;line-height:1.2;clip-path:polygon(0 0,95% 0,100% 50%,95% 100%,0 100%)}
+.message-card h3{margin:0 0 20px;font-size:clamp(34px,4.1vw,62px);line-height:1.18;font-weight:900;letter-spacing:.01em}
+.message-card--secondary h3{color:#0954af;font-size:clamp(24px,3vw,46px)}
+.message-card__body{display:grid;gap:8px;font-size:clamp(14px,1.22vw,18px);line-height:1.7;font-weight:700}
+.message-card__body p{margin:0}
+.message-card__photo img{display:block;width:100%;height:100%;object-fit:cover;border-radius:12px}
+.message-card__photo--right img{border-radius:12px}
+.message-section__closing{margin:18px auto 0;width:max-content;max-width:100%;color:#0a54ae;font-size:clamp(30px,4vw,58px);font-weight:500;line-height:1.1;font-family:"Yuji Syuku", "Hiragino Mincho ProN", "Yu Mincho", serif;transform:rotate(-5deg);position:relative;text-align:center;padding-bottom:14px}
+.message-section__closing::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:#0a54ae;transform:skewX(-24deg)}
+
+@media (max-width: 920px){
+  .message-grid{grid-template-columns:1fr}
+  .message-card--primary,.message-card--secondary{grid-template-columns:1fr 240px}
+}
+@media (max-width: 680px){
+  .message-card--primary,.message-card--secondary{grid-template-columns:1fr}
+  .message-card--primary .message-card__copy,.message-card--secondary .message-card__copy{clip-path:none;border-radius:14px}
+  .message-card--primary .message-card__photo,.message-card--secondary .message-card__photo{clip-path:none;transform:none;height:240px}
+  .message-card--primary .message-card__banner{display:none}
+  .message-card h3{font-size:clamp(26px,7vw,42px)}
+  .message-section__closing{font-size:clamp(24px,8vw,34px)}
+}

@@ -1,0 +1,146 @@
+/*
+ SECTION 01専用スタイル。
+ PCは1024px幅の元デザインを基準に比例配置。
+ cqw = 親のLP幅の1%。例：6.25cqwは1024px幅で64pxです。
+ 写真の余白は元ファイルに残し、表示時のみCSSでトリミングします。
+*/
+.recruit-intro {
+  position: relative; isolation: isolate; overflow: hidden;
+  color: var(--color-on-blue); background: var(--color-primary);
+}
+.intro__visual { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.intro__photo { position: absolute; overflow: hidden; margin: 0; }
+.intro__photo img { width: 100%; height: 100%; object-fit: cover; }
+/* 写真の見せる範囲はここで調整します。 */
+.intro__photo--technician { inset: 0; }
+.intro__photo--technician img {
+  width: 87%; max-width: none; height: auto;
+  position: absolute; left: 14.5%; top: -.8cqw;
+}
+.intro__photo--office {
+  z-index: 1; right: -1%; top: 27cqw; width: 59%; height: 53cqw;
+  /* 画像の矩形の余白は残したまま、表示時だけ別PNGでマスクします。 */
+  -webkit-mask: url("../../assets/section-01/masks/office-photo-mask.png") center / 100% 100% no-repeat;
+  mask: url("../../assets/section-01/masks/office-photo-mask.png") center / 100% 100% no-repeat;
+}
+.intro__photo--office img {
+  object-position: 58% 50%; transform: none;
+}
+/* 背景画像は個別PNG。見せる形だけCSSで切り抜きます。 */
+.intro__blue-shape {
+  z-index: 2; position: absolute; inset: 0;
+  background: url("../../assets/section-01/backgrounds/blue-geometric-shape.png") center / 100% 100% no-repeat;
+  /* 幾何学形状と透過をPNGに保存済み。 */
+}
+.intro__accent-band {
+  position: absolute; inset: auto 0 0; height: 11.45cqw;
+  background: url("../../assets/section-01/backgrounds/accent-band.png") center / 100% 100% no-repeat;
+}
+.intro__content { position: relative; padding: 3.6cqw 3.42cqw 4.5cqw; }
+.intro__label {
+  font-size: 1.7cqw; font-weight: 700; line-height: 1.5;
+  letter-spacing: .09em; color: var(--color-label);
+}
+.intro__lead {
+  display: table; max-width: 64cqw;
+  margin-top: 2.8cqw; margin-left: -.9cqw;
+  padding: .76cqw 3.25cqw .8cqw 1.72cqw;
+  background: url("../../assets/section-01/backgrounds/lead-ribbon.png") center / 100% 100% no-repeat;
+  clip-path: polygon(0 0,100% 0,96.5% 100%,0 100%);
+  font-size: 1.85cqw; line-height: 1.55; font-weight: 800; letter-spacing: .055em;
+}
+.intro__title {
+  width: 64cqw; margin-top: 2.5cqw; margin-left: -.32cqw;
+  font-size: 6.15cqw; line-height: 1.45; font-weight: 900;
+  letter-spacing: .018em; font-feature-settings: "palt"; overflow-wrap: anywhere;
+}
+.intro__title > span { display: block; }
+.intro__body {
+  width: 59.5cqw; margin-top: 2.15cqw;
+  font-size: 1.7578cqw; line-height: 2.1; font-weight: 700;
+  letter-spacing: .015em; line-break: strict; overflow-wrap: anywhere;
+}
+.intro__benefits {
+  width: 81.05cqw; display: grid;
+  grid-template-columns: 1.035fr .915fr 1.075fr; gap: 1.05cqw;
+  padding: 0; margin: 3.4cqw 0 0; list-style: none;
+}
+.benefit {
+  min-width: 0; display: flex; align-items: center;
+  gap: 2.05cqw; padding: 1.65cqw 2.1cqw; min-height: 10.25cqw;
+  background: var(--color-surface); border: 1px solid rgba(210,227,240,.95);
+  border-radius: .48cqw; color: var(--color-card-text);
+  box-shadow: 0 .2cqw .9cqw rgba(0,49,100,.09);
+}
+.benefit__icon { flex: 0 0 6.35cqw; width: 6.35cqw; height: 6.35cqw; object-fit: contain; }
+.benefit__copy { flex: 1; min-width: 0; }
+.benefit h2 {
+  font-size: 2.52cqw; line-height: 1.35; font-weight: 900;
+  letter-spacing: .01em; white-space: nowrap;
+}
+.benefit p { margin-top: .45cqw; font-size: 1.43cqw; line-height: 1.6; font-weight: 700; white-space: nowrap; }
+
+/* スマホでは写真の配置とカードの並びを変更。文章は同じです。 */
+@media (max-width: 767px) {
+  .recruit-intro {
+    /* 見出しの高さに合わせて写真帯の位置を追従させます。 */
+    --intro-photo-top: calc(114px + clamp(18.15px, 5.115vw, 28.05px) + clamp(171.36px, 47.2464vw, 318.24px));
+  }
+  .intro__content { padding: 25px 22px 30px; }
+  .intro__label { font-size: 12px; line-height: 1.5; }
+  .intro__lead {
+    max-width: 100%; margin: 20px 0 0 -5px; padding: 9px 20px 9px 12px;
+    font-size: clamp(11px, 3.1vw, 17px); line-height: 1.65; letter-spacing: .02em;
+  }
+  .intro__title {
+    width: 100%; margin: 21px 0 0 -2px;
+    font-size: clamp(28px, 7.72vw, 52px); line-height: 1.53; letter-spacing: .015em;
+  }
+  .intro__body {
+    width: 100%; margin-top: 280px; font-size: 14px;
+    line-height: 1.95; letter-spacing: .015em;
+  }
+  .intro__body p + p { margin-top: 5px; }
+  .intro__photo--technician { inset: var(--intro-photo-top) auto auto 0; width: 60%; height: 240px; }
+  .intro__photo--technician img {
+    width: 100%; max-width: none; height: 100%; object-fit: cover;
+    left: 0; top: 0; object-position: 100% 50%;
+  }
+  .intro__photo--office {
+    top: calc(var(--intro-photo-top) + 20px); right: 0; width: 58%; height: 240px;
+    -webkit-mask: none; mask: none;
+    clip-path: polygon(16% 0,100% 0,100% 100%,0 100%);
+  }
+  .intro__photo--office img { object-position: 65% 50%; transform: none; }
+  .intro__blue-shape {
+    background: url("../../assets/section-01/backgrounds/blue-geometric-overlay.png") center / 100% 100% no-repeat;
+    inset: 0 0 auto; height: var(--intro-photo-top); clip-path: none;
+  }
+  .intro__visual::after {
+    content: ""; z-index: 3; position: absolute; inset: calc(var(--intro-photo-top) + 210px) 0 0;
+    background: linear-gradient(180deg,transparent 0,var(--color-primary) 60px,var(--color-primary) 100%);
+  }
+  .intro__accent-band { height: 18%; z-index: 1; }
+  .intro__benefits {
+    position: relative; z-index: 2; width: 100%; grid-template-columns: 1fr;
+    gap: 10px; margin-top: 25px;
+  }
+  .benefit { min-height: 84px; gap: 20px; padding: 15px 22px; border-radius: 6px; }
+  .benefit__icon { flex-basis: 52px; width: 52px; height: 52px; }
+  .benefit h2 { font-size: 22px; line-height: 1.4; }
+  .benefit p { margin-top: 3px; font-size: 13px; line-height: 1.6; }
+}
+@media (min-width: 480px) and (max-width: 767px) {
+  .intro__content { padding-inline: 34px; }
+  .intro__body { margin-top: 280px; font-size: 16px; }
+}
+@media (max-width: 359px) {
+  .intro__content { padding-inline: 17px; }
+  .intro__body { font-size: 13px; margin-top: 280px; }
+  .benefit { gap: 16px; padding-inline: 18px; }
+  .benefit h2 { font-size: 21px; }
+}
+
+@media (min-width: 768px) {
+  #benefit-salary h2 { font-size: 2.4cqw; }
+}
