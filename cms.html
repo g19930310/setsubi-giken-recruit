@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>設備技研 採用サイト CMS</title>
+<style>
+  :root {
+    --brand: #1A6BB0;
+    --brand-dark: #14548c;
+    --brand-light: #eaf2fa;
+    --text: #1f2937;
+    --text-sub: #6b7280;
+    --border: #d9e3ee;
+    --success: #1e9e5a;
+    --danger: #d64545;
+    --radius: 10px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    background: #f4f7fb;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  header.app-header {
+    background: var(--brand);
+    color: #fff;
+    padding: 16px 20px;
+    font-size: 17px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 20px 16px 60px;
+  }
+
+  /* ------- ログイン画面 ------- */
+  .login-wrap {
+    min-height: calc(100vh - 56px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .login-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    width: 100%;
+    max-width: 360px;
+    box-shadow: 0 4px 16px rgba(26, 107, 176, 0.12);
+    text-align: center;
+  }
+
+  .login-card h1 {
+    font-size: 18px;
+    color: var(--brand);
+    margin: 0 0 4px;
+  }
+
+  .login-card p.sub {
+    font-size: 13px;
+    color: var(--text-sub);
+    margin: 0 0 20px;
+  }
+
+  .login-card input[type="password"] {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+
+  .login-card input[type="password"]:focus {
+    outline: none;
+    border-color: var(--brand);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .btn-primary {
+    background: var(--brand);
+    color: #fff;
+    width: 100%;
+  }
+  .btn-primary:hover { background: var(--brand-dark); }
+
+  .btn-outline {
+    background: #fff;
+    color: var(--brand);
+    border: 1px solid var(--brand);
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+  .btn-outline:hover { background: var(--brand-light); }
+
+  .btn-save {
+    background: var(--success);
+    color: #fff;
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+  .btn-save:hover { filter: brightness(0.95); }
+
+  .btn-cancel {
+    background: #fff;
+    color: var(--text-sub);
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .error-msg {
+    color: var(--danger);
+    font-size: 13px;
+    margin: -4px 0 12px;
+    min-height: 16px;
+  }
+
+  /* ------- 管理画面 ------- */
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .toolbar select {
+    flex: 1;
+    min-width: 200px;
+    padding: 11px 12px;
+    font-size: 15px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--text);
+  }
+
+  .toolbar select:focus { outline: none; border-color: var(--brand); }
+
+  .status-line {
+    font-size: 13px;
+    color: var(--text-sub);
+    margin-bottom: 14px;
+    min-height: 18px;
+  }
+
+  .status-line.loading::before {
+    content: "⏳ ";
+  }
+
+  .row-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+
+  .row-card .row-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--brand);
+    background: var(--brand-light);
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+  }
+
+  .row-card .row-value {
+    font-size: 15px;
+    line-height: 1.6;
+    white-space: pre-line;
+    word-break: break-word;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .row-card textarea {
+    width: 100%;
+    min-height: 90px;
+    font-size: 15px;
+    line-height: 1.6;
+    font-family: inherit;
+    padding: 10px;
+    border: 1px solid var(--brand);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    resize: vertical;
+  }
+
+  .row-card textarea:focus { outline: none; }
+
+  .row-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .save-ok {
+    color: var(--success);
+    font-size: 13px;
+    font-weight: 700;
+    margin-left: 4px;
+  }
+
+  .save-error {
+    color: var(--danger);
+    font-size: 13px;
+    font-weight: 700;
+    margin-left: 4px;
+  }
+
+  .empty-msg {
+    text-align: center;
+    color: var(--text-sub);
+    font-size: 14px;
+    padding: 30px 0;
+  }
+
+  .hidden { display: none !important; }
+
+  @media (max-width: 480px) {
+    .row-actions { width: 100%; }
+    .row-actions .btn { flex: 1; }
+  }
+</style>
+</head>
+<body>
+
+<header class="app-header">🔧 設備技研 採用サイト CMS</header>
+
+<!-- ログイン画面 -->
+<div id="login-screen" class="login-wrap">
+  <div class="login-card">
+    <h1>設備技研 採用サイト CMS</h1>
+    <p class="sub">パスワードを入力してください</p>
+    <input type="password" id="password-input" placeholder="パスワード" autocomplete="off">
+    <p class="error-msg" id="login-error"></p>
+    <button class="btn btn-primary" id="login-btn">ログイン</button>
+  </div>
+</div>
+
+<!-- 管理画面 -->
+<main id="cms-screen" class="hidden">
+  <div class="toolbar">
+    <select id="section-select">
+      <option value="">セクションを選択してください</option>
+      <option value="section01">Section 01</option>
+      <option value="section02">Section 02</option>
+      <option value="section03">Section 03</option>
+      <option value="section04">Section 04</option>
+      <option value="section05">Section 05</option>
+      <option value="section06">Section 06</option>
+      <option value="section07">Section 07</option>
+      <option value="section08">Section 08</option>
+      <option value="section09">Section 09</option>
+      <option value="section10">Section 10</option>
+      <option value="section11">Section 11</option>
+      <option value="section12">Section 12</option>
+    </select>
+  </div>
+
+  <p class="status-line" id="status-line"></p>
+
+  <div id="row-list"></div>
+</main>
+
+<script>
+(function () {
+  // ==== 設定 ====
+  const SUPABASE_URL = "https://ifquxxwvloqxbaeoitos.supabase.co";
+  const SUPABASE_ANON_KEY = "sb_publishable_cH1wKeeqENGqkbFbsekDtQ_2ZFOrKla";
+  const TABLE_NAME = "site_content";
+  const CMS_PASSWORD = "setsubi2026";
+
+  // ==== 要素取得 ====
+  const loginScreen = document.getElementById("login-screen");
+  const cmsScreen = document.getElementById("cms-screen");
+  const passwordInput = document.getElementById("password-input");
+  const loginBtn = document.getElementById("login-btn");
+  const loginError = document.getElementById("login-error");
+  const sectionSelect = document.getElementById("section-select");
+  const statusLine = document.getElementById("status-line");
+  const rowList = document.getElementById("row-list");
+
+  // ==== ログイン処理 ====
+  function tryLogin() {
+    if (passwordInput.value === CMS_PASSWORD) {
+      loginError.textContent = "";
+      loginScreen.classList.add("hidden");
+      cmsScreen.classList.remove("hidden");
+    } else {
+      loginError.textContent = "パスワードが違います。";
+    }
+  }
+
+  loginBtn.addEventListener("click", tryLogin);
+  passwordInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") tryLogin();
+  });
+
+  // ==== セクション切り替え ====
+  sectionSelect.addEventListener("change", function () {
+    const section = sectionSelect.value;
+    rowList.innerHTML = "";
+    if (!section) {
+      statusLine.textContent = "";
+      return;
+    }
+    loadSection(section);
+  });
+
+  // ==== データ取得 ====
+  async function loadSection(section) {
+    statusLine.textContent = "読み込み中です...";
+    statusLine.classList.add("loading");
+    rowList.innerHTML = "";
+
+    try {
+      const url = `${SUPABASE_URL}/rest/v1/${TABLE_NAME}?select=content_key,label,value&section=eq.${encodeURIComponent(section)}&order=content_key.asc`;
+      const res = await fetch(url, {
+        headers: {
+          apikey: SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`
+        }
+      });
+
+      if (!res.ok) {
+        throw new Error(`データ取得に失敗しました (status: ${res.status})`);
+      }
+
+      const rows = await res.json();
+      statusLine.classList.remove("loading");
+
+      if (rows.length === 0) {
+        statusLine.textContent = "";
+        rowList.innerHTML = '<p class="empty-msg">このセクションにはデータがありません。</p>';
+        return;
+      }
+
+      statusLine.textContent = `${rows.length}件の項目があります。`;
+      rows.forEach(renderRow);
+    } catch (err) {
+      statusLine.classList.remove("loading");
+      statusLine.textContent = "";
+      rowList.innerHTML = `<p class="empty-msg">⚠️ 読み込みに失敗しました。${err.message}</p>`;
+      console.log("Supabase取得エラー:", err);
+    }
+  }
+
+  // ==== 1行分のカードを描画 ====
+  function renderRow(row) {
+    const card = document.createElement("div");
+    card.className = "row-card";
+
+    const labelEl = document.createElement("div");
+    labelEl.className = "row-label";
+    labelEl.textContent = row.label || row.content_key;
+    card.appendChild(labelEl);
+
+    const valueEl = document.createElement("div");
+    valueEl.className = "row-value";
+    valueEl.textContent = row.value || "";
+    card.appendChild(valueEl);
+
+    const actions = document.createElement("div");
+    actions.className = "row-actions";
+
+    const editBtn = document.createElement("button");
+    editBtn.className = "btn btn-outline";
+    editBtn.textContent = "編集";
+    actions.appendChild(editBtn);
+
+    card.appendChild(actions);
+    rowList.appendChild(card);
+
+    editBtn.addEventListener("click", function () {
+      startEdit(card, valueEl, actions, row);
+    });
+  }
+
+  // ==== 編集モードに切り替え ====
+  function startEdit(card, valueEl, actions, row) {
+    const currentValue = row.value || "";
+
+    const textarea = document.createElement("textarea");
+    textarea.value = currentValue;
+    card.insertBefore(textarea, actions);
+    valueEl.classList.add("hidden");
+    textarea.focus();
+
+    actions.innerHTML = "";
+
+    const saveBtn = document.createElement("button");
+    saveBtn.className = "btn btn-save";
+    saveBtn.textContent = "保存";
+
+    const cancelBtn = document.createElement("button");
+    cancelBtn.className = "btn btn-cancel";
+    cancelBtn.textContent = "キャンセル";
+
+    const messageEl = document.createElement("span");
+
+    actions.appendChild(saveBtn);
+    actions.appendChild(cancelBtn);
+    actions.appendChild(messageEl);
+
+    cancelBtn.addEventListener("click", function () {
+      textarea.remove();
+      valueEl.classList.remove("hidden");
+      resetActions(actions, card, valueEl, row);
+    });
+
+    saveBtn.addEventListener("click", async function () {
+      const newValue = textarea.value;
+      saveBtn.disabled = true;
+      saveBtn.textContent = "保存中...";
+      messageEl.textContent = "";
+      messageEl.className = "";
+
+      try {
+        await updateValue(row.content_key, newValue);
+        row.value = newValue;
+        valueEl.textContent = newValue;
+        messageEl.textContent = "✅ 保存しました";
+        messageEl.className = "save-ok";
+        textarea.remove();
+        valueEl.classList.remove("hidden");
+        resetActions(actions, card, valueEl, row, messageEl.textContent, "save-ok");
+      } catch (err) {
+        messageEl.textContent = "❌ 保存に失敗しました";
+        messageEl.className = "save-error";
+        saveBtn.disabled = false;
+        saveBtn.textContent = "保存";
+        console.log("Supabase更新エラー:", err);
+      }
+    });
+  }
+
+  // ==== ボタンを「編集」ボタンだけの状態に戻す ====
+  function resetActions(actions, card, valueEl, row, message, messageClass) {
+    actions.innerHTML = "";
+
+    const editBtn = document.createElement("button");
+    editBtn.className = "btn btn-outline";
+    editBtn.textContent = "編集";
+    actions.appendChild(editBtn);
+
+    if (message) {
+      const messageEl = document.createElement("span");
+      messageEl.textContent = message;
+      messageEl.className = messageClass || "";
+      actions.appendChild(messageEl);
+      setTimeout(function () {
+        messageEl.remove();
+      }, 3000);
+    }
+
+    editBtn.addEventListener("click", function () {
+      startEdit(card, valueEl, actions, row);
+    });
+  }
+
+  // ==== Supabaseへの更新リクエスト ====
+  async function updateValue(contentKey, newValue) {
+    const url = `${SUPABASE_URL}/rest/v1/${TABLE_NAME}?content_key=eq.${encodeURIComponent(contentKey)}`;
+    const res = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        "Content-Type": "application/json",
+        Prefer: "return=minimal"
+      },
+      body: JSON.stringify({ value: newValue })
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`status: ${res.status} ${text}`);
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
