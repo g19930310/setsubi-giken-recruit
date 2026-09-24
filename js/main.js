@@ -14,40 +14,86 @@ Supabase / CMS / 外部通信はまだ未実装です。
   const thumbs = [...document.querySelectorAll('[data-voice-thumb]')];
   const dots = [...document.querySelectorAll('[data-voice-dot]')];
   let index = 0;
+  let isWrapping = false;
 
-  // 最後のカードの隣が空白にならないよう、1枚目の複製を末尾に追加して
-  // 見た目だけ「先頭に戻る」ループを作る（表示用の複製なのでスライド数には数えない）
-  const firstSlide = slides[0];
-  if (firstSlide) {
-    const loopClone = firstSlide.cloneNode(true);
-    loopClone.removeAttribute('data-voice-slide');
-    loopClone.removeAttribute('data-voice-index');
-    loopClone.setAttribute('aria-hidden', 'true');
-    loopClone.querySelectorAll('a, button').forEach((el) => el.setAttribute('tabindex', '-1'));
-    track.appendChild(loopClone);
+  // 端まで来たときに空白や「ワープ」が見えないよう、
+  // 先頭の前に「最後の複製」を1枚、末尾の後に「先頭2枚の複製」を追加しておく。
+  // これにより前後どちらに送っても常に隣に本物そっくりのカードがあり、
+  // 筒がそのまま回転しているように見える（実際のスライド数には数えない）。
+  function makeClone(sourceSlide) {
+    const clone = sourceSlide.cloneNode(true);
+    clone.removeAttribute('data-voice-slide');
+    clone.removeAttribute('data-voice-index');
+    clone.setAttribute('aria-hidden', 'true');
+    clone.querySelectorAll('a, button').forEach((el) => el.setAttribute('tabindex', '-1'));
+    return clone;
+  }
+
+  if (slides.length > 1) {
+    track.insertBefore(makeClone(slides[slides.length - 1]), slides[0]);
+    track.appendChild(makeClone(slides[0]));
+    track.appendChild(makeClone(slides[1] || slides[0]));
   }
 
   const maxIndex = () => Math.max(0, slides.length - 1);
 
-  function render() {
-    index = Math.max(0, Math.min(index, maxIndex()));
-    const first = slides[0];
+  // 先頭に複製を1枚差し込んだ分、実際の描画位置は常に+1ズレる
+  function trackPositionFor(i) {
     const gap = parseFloat(getComputedStyle(track).gap || 0);
-    const slideWidth = first ? first.getBoundingClientRect().width : 0;
-    track.style.transform = `translateX(-${index * (slideWidth + gap)}px)`;
+    const slideWidth = slides[0] ? slides[0].getBoundingClientRect().width : 0;
+    return (i + 1) * (slideWidth + gap);
+  }
 
+  function updateDotsThumbs(activeIndex) {
     thumbs.forEach((thumb, i) => {
-      const active = i === index;
+      const active = i === activeIndex;
       thumb.classList.toggle('is-active', active);
       if (!thumb.disabled) thumb.setAttribute('aria-selected', String(active));
     });
-    dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
+    dots.forEach((dot, i) => dot.classList.toggle('is-active', i === activeIndex));
   }
 
-  prev?.addEventListener('click', () => { index = index <= 0 ? maxIndex() : index - 1; render(); });
-  next?.addEventListener('click', () => { index = index >= maxIndex() ? 0 : index + 1; render(); });
-  thumbs.forEach((thumb) => thumb.addEventListener('click', () => { index = Number(thumb.dataset.voiceThumb || 0); render(); }));
-  dots.forEach((dot) => dot.addEventListener('click', () => { index = Number(dot.dataset.voiceDot || 0); render(); }));
+  function render() {
+    index = Math.max(0, Math.min(index, maxIndex()));
+    track.style.transform = `translateX(-${trackPositionFor(index)}px)`;
+    updateDotsThumbs(index);
+  }
+
+  // 端を超えたときに、見た目上つながっている複製カードへ普通にスライドさせてから、
+  // アニメーションが終わった瞬間（見た目が変わらないタイミング）で
+  // 本物のカード位置へこっそり置き換える。
+  function wrapTo(virtualIndex, landingIndex) {
+    if (isWrapping) return;
+    isWrapping = true;
+    track.style.transform = `translateX(-${trackPositionFor(virtualIndex)}px)`;
+    updateDotsThumbs(landingIndex);
+
+    const finish = () => {
+      track.removeEventListener('transitionend', finish);
+      track.style.transition = 'none';
+      index = landingIndex;
+      track.style.transform = `translateX(-${trackPositionFor(index)}px)`;
+      // 一度描画を確定させてからtransitionを元に戻す
+      void track.offsetWidth;
+      track.style.transition = '';
+      isWrapping = false;
+    };
+    track.addEventListener('transitionend', finish, { once: true });
+  }
+
+
+  prev?.addEventListener('click', () => {
+    if (isWrapping) return;
+    if (index <= 0) { wrapTo(-1, maxIndex()); return; }
+    index -= 1; render();
+  });
+  next?.addEventListener('click', () => {
+    if (isWrapping) return;
+    if (index >= maxIndex()) { wrapTo(maxIndex() + 1, 0); return; }
+    index += 1; render();
+  });
+  thumbs.forEach((thumb) => thumb.addEventListener('click', () => { if (isWrapping) return; index = Number(thumb.dataset.voiceThumb || 0); render(); }));
+  dots.forEach((dot) => dot.addEventListener('click', () => { if (isWrapping) return; index = Number(dot.dataset.voiceDot || 0); render(); }));
   window.addEventListener('resize', render, { passive: true });
 
   render();
