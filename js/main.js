@@ -15,6 +15,18 @@ Supabase / CMS / 外部通信はまだ未実装です。
   const dots = [...document.querySelectorAll('[data-voice-dot]')];
   let index = 0;
 
+  // 最後のカードの隣が空白にならないよう、1枚目の複製を末尾に追加して
+  // 見た目だけ「先頭に戻る」ループを作る（表示用の複製なのでスライド数には数えない）
+  const firstSlide = slides[0];
+  if (firstSlide) {
+    const loopClone = firstSlide.cloneNode(true);
+    loopClone.removeAttribute('data-voice-slide');
+    loopClone.removeAttribute('data-voice-index');
+    loopClone.setAttribute('aria-hidden', 'true');
+    loopClone.querySelectorAll('a, button').forEach((el) => el.setAttribute('tabindex', '-1'));
+    track.appendChild(loopClone);
+  }
+
   const maxIndex = () => Math.max(0, slides.length - 1);
 
   function render() {
