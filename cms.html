@@ -12,10 +12,12 @@
     --brand-light: #eaf2fa;
     --text: #1f2937;
     --text-sub: #6b7280;
-    --border: #d9e3ee;
+    --border: #dbe4ee;
     --success: #1e9e5a;
+    --success-light: #e8f8ee;
     --danger: #d64545;
-    --radius: 10px;
+    --danger-light: #fdecec;
+    --radius: 12px;
   }
 
   * { box-sizing: border-box; }
@@ -28,16 +30,113 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* ------- 共通ボタン（44px以上のタップ領域を確保） ------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: none;
+    border-radius: 9px;
+    padding: 12px 20px;
+    min-height: 46px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+  }
+  .btn:active { transform: scale(0.98); }
+
+  .btn-primary { background: var(--brand); color: #fff; width: 100%; }
+  .btn-primary:hover { background: var(--brand-dark); }
+
+  .btn-outline {
+    background: #fff;
+    color: var(--brand);
+    border: 2px solid var(--brand);
+    padding: 10px 18px;
+  }
+  .btn-outline:hover { background: var(--brand-light); }
+
+  .btn-save { background: var(--success); color: #fff; padding: 10px 18px; }
+  .btn-save:hover { filter: brightness(0.95); }
+  .btn-save:disabled { opacity: 0.6; cursor: default; }
+
+  .btn-cancel {
+    background: #fff;
+    color: var(--text-sub);
+    border: 2px solid var(--border);
+    padding: 10px 18px;
+  }
+
+  /* ------- ヘッダー ------- */
   header.app-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
     background: var(--brand);
     color: #fff;
-    padding: 16px 20px;
+  }
+  .app-header__top {
+    padding: 14px 18px;
     font-size: 17px;
     font-weight: 700;
     display: flex;
     align-items: center;
     gap: 8px;
   }
+  /* 今どのセクションを編集しているか常に見える帯 */
+  .app-header__section {
+    background: var(--brand-dark);
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 22px;
+  }
+  .app-header__section .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #7fd6a0;
+    flex: 0 0 auto;
+  }
+  .app-header__section.is-empty {
+    color: rgba(255,255,255,0.65);
+    font-weight: 500;
+  }
+
+  /* ------- 保存トースト（画面上部に表示） ------- */
+  .toast-wrap {
+    position: fixed;
+    top: 14px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 50;
+    pointer-events: none;
+  }
+  .toast {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 22px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    transform: translateY(-30px);
+    opacity: 0;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    max-width: 90vw;
+  }
+  .toast.is-visible { transform: translateY(0); opacity: 1; }
+  .toast.toast-success { background: var(--success); color: #fff; }
+  .toast.toast-error { background: var(--danger); color: #fff; }
 
   main {
     max-width: 720px;
@@ -57,10 +156,10 @@
   .login-card {
     background: #fff;
     border-radius: var(--radius);
-    padding: 32px 28px;
+    padding: 34px 28px;
     width: 100%;
     max-width: 360px;
-    box-shadow: 0 4px 16px rgba(26, 107, 176, 0.12);
+    box-shadow: 0 4px 20px rgba(26, 107, 176, 0.14);
     text-align: center;
   }
 
@@ -78,62 +177,17 @@
 
   .login-card input[type="password"] {
     width: 100%;
-    padding: 12px 14px;
+    padding: 13px 14px;
     font-size: 16px;
+    min-height: 46px;
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 9px;
     margin-bottom: 12px;
   }
 
   .login-card input[type="password"]:focus {
     outline: none;
     border-color: var(--brand);
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 18px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.15s ease;
-  }
-
-  .btn-primary {
-    background: var(--brand);
-    color: #fff;
-    width: 100%;
-  }
-  .btn-primary:hover { background: var(--brand-dark); }
-
-  .btn-outline {
-    background: #fff;
-    color: var(--brand);
-    border: 1px solid var(--brand);
-    padding: 8px 14px;
-    font-size: 13px;
-  }
-  .btn-outline:hover { background: var(--brand-light); }
-
-  .btn-save {
-    background: var(--success);
-    color: #fff;
-    padding: 8px 14px;
-    font-size: 13px;
-  }
-  .btn-save:hover { filter: brightness(0.95); }
-
-  .btn-cancel {
-    background: #fff;
-    color: var(--text-sub);
-    border: 1px solid var(--border);
-    padding: 8px 14px;
-    font-size: 13px;
   }
 
   .error-msg {
@@ -144,21 +198,23 @@
   }
 
   /* ------- 管理画面 ------- */
-  .toolbar {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 18px;
+  .toolbar { margin-bottom: 18px; }
+  .toolbar label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-sub);
+    margin-bottom: 6px;
   }
 
   .toolbar select {
-    flex: 1;
-    min-width: 200px;
-    padding: 11px 12px;
-    font-size: 15px;
+    width: 100%;
+    padding: 12px 14px;
+    min-height: 48px;
+    font-size: 16px;
+    font-weight: 700;
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 9px;
     background: #fff;
     color: var(--text);
   }
@@ -172,79 +228,72 @@
     min-height: 18px;
   }
 
-  .status-line.loading::before {
-    content: "⏳ ";
-  }
+  .status-line.loading::before { content: "⏳ "; }
 
+  /* ------- 編集カード：labelを主役に、content_keyは補助情報として控えめに ------- */
   .row-card {
     background: #fff;
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 14px 16px;
-    margin-bottom: 12px;
+    padding: 18px 18px 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 8px rgba(15, 60, 100, 0.05);
   }
 
   .row-card .row-label {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--brand);
-    background: var(--brand-light);
-    display: inline-block;
-    padding: 3px 8px;
-    border-radius: 5px;
-    margin-bottom: 8px;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--brand-dark);
+    line-height: 1.4;
+    margin-bottom: 3px;
+  }
+
+  .row-card .row-key {
+    font-size: 11px;
+    color: var(--text-sub);
+    font-family: monospace;
+    margin-bottom: 12px;
+    opacity: 0.75;
   }
 
   .row-card .row-value {
     font-size: 15px;
-    line-height: 1.6;
+    line-height: 1.7;
     white-space: pre-line;
     word-break: break-word;
     color: var(--text);
-    margin-bottom: 10px;
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
   }
 
   .row-card textarea {
     width: 100%;
-    min-height: 90px;
-    font-size: 15px;
+    min-height: 100px;
+    font-size: 16px;
     line-height: 1.6;
     font-family: inherit;
-    padding: 10px;
-    border: 1px solid var(--brand);
-    border-radius: 8px;
-    margin-bottom: 10px;
+    padding: 12px;
+    border: 2px solid var(--brand);
+    border-radius: 9px;
+    margin-bottom: 12px;
     resize: vertical;
   }
-
   .row-card textarea:focus { outline: none; }
 
   .row-actions {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     flex-wrap: wrap;
     align-items: center;
-  }
-
-  .save-ok {
-    color: var(--success);
-    font-size: 13px;
-    font-weight: 700;
-    margin-left: 4px;
-  }
-
-  .save-error {
-    color: var(--danger);
-    font-size: 13px;
-    font-weight: 700;
-    margin-left: 4px;
   }
 
   .empty-msg {
     text-align: center;
     color: var(--text-sub);
     font-size: 14px;
-    padding: 30px 0;
+    padding: 34px 0;
   }
 
   .hidden { display: none !important; }
@@ -257,7 +306,15 @@
 </head>
 <body>
 
-<header class="app-header">🔧 設備技研 採用サイト CMS</header>
+<!-- 保存結果トースト（画面上部） -->
+<div class="toast-wrap">
+  <div class="toast" id="toast"></div>
+</div>
+
+<header class="app-header">
+  <div class="app-header__top">🔧 設備技研 採用サイト CMS</div>
+  <div class="app-header__section is-empty" id="section-indicator">セクション未選択</div>
+</header>
 
 <!-- ログイン画面 -->
 <div id="login-screen" class="login-wrap">
@@ -273,6 +330,7 @@
 <!-- 管理画面 -->
 <main id="cms-screen" class="hidden">
   <div class="toolbar">
+    <label for="section-select">編集するセクション</label>
     <select id="section-select">
       <option value="">セクションを選択してください</option>
       <option value="section01">Section 01</option>
@@ -310,8 +368,10 @@
   const loginBtn = document.getElementById("login-btn");
   const loginError = document.getElementById("login-error");
   const sectionSelect = document.getElementById("section-select");
+  const sectionIndicator = document.getElementById("section-indicator");
   const statusLine = document.getElementById("status-line");
   const rowList = document.getElementById("row-list");
+  const toast = document.getElementById("toast");
 
   // ==== ログイン処理 ====
   function tryLogin() {
@@ -329,14 +389,43 @@
     if (e.key === "Enter") tryLogin();
   });
 
+  // ==== トースト表示（画面上部に「✅ 保存しました！」等を出す） ====
+  let toastTimer = null;
+  function showToast(message, type) {
+    clearTimeout(toastTimer);
+    toast.textContent = message;
+    toast.className = "toast " + (type === "error" ? "toast-error" : "toast-success");
+    // 描画を1フレーム待ってからクラスを付けるとアニメーションが確実に発火する
+    requestAnimationFrame(function () {
+      toast.classList.add("is-visible");
+    });
+    toastTimer = setTimeout(function () {
+      toast.classList.remove("is-visible");
+    }, 2600);
+  }
+
+  // ==== 今編集中のセクションを常に表示 ====
+  function updateSectionIndicator(section, label) {
+    if (!section) {
+      sectionIndicator.textContent = "セクション未選択";
+      sectionIndicator.classList.add("is-empty");
+      return;
+    }
+    sectionIndicator.classList.remove("is-empty");
+    sectionIndicator.innerHTML = '<span class="dot"></span>編集中：' + (label || section);
+  }
+
   // ==== セクション切り替え ====
   sectionSelect.addEventListener("change", function () {
     const section = sectionSelect.value;
+    const selectedLabel = sectionSelect.options[sectionSelect.selectedIndex].text;
     rowList.innerHTML = "";
     if (!section) {
       statusLine.textContent = "";
+      updateSectionIndicator(null);
       return;
     }
+    updateSectionIndicator(section, selectedLabel);
     loadSection(section);
   });
 
@@ -378,7 +467,7 @@
     }
   }
 
-  // ==== 1行分のカードを描画 ====
+  // ==== 1行分のカードを描画（labelを主役、content_keyは小さく補助表示） ====
   function renderRow(row) {
     const card = document.createElement("div");
     card.className = "row-card";
@@ -387,6 +476,11 @@
     labelEl.className = "row-label";
     labelEl.textContent = row.label || row.content_key;
     card.appendChild(labelEl);
+
+    const keyEl = document.createElement("div");
+    keyEl.className = "row-key";
+    keyEl.textContent = row.content_key;
+    card.appendChild(keyEl);
 
     const valueEl = document.createElement("div");
     valueEl.className = "row-value";
@@ -429,11 +523,8 @@
     cancelBtn.className = "btn btn-cancel";
     cancelBtn.textContent = "キャンセル";
 
-    const messageEl = document.createElement("span");
-
     actions.appendChild(saveBtn);
     actions.appendChild(cancelBtn);
-    actions.appendChild(messageEl);
 
     cancelBtn.addEventListener("click", function () {
       textarea.remove();
@@ -445,46 +536,32 @@
       const newValue = textarea.value;
       saveBtn.disabled = true;
       saveBtn.textContent = "保存中...";
-      messageEl.textContent = "";
-      messageEl.className = "";
 
       try {
         await updateValue(row.content_key, newValue);
         row.value = newValue;
         valueEl.textContent = newValue;
-        messageEl.textContent = "✅ 保存しました";
-        messageEl.className = "save-ok";
         textarea.remove();
         valueEl.classList.remove("hidden");
-        resetActions(actions, card, valueEl, row, messageEl.textContent, "save-ok");
+        resetActions(actions, card, valueEl, row);
+        showToast("✅ 保存しました！", "success");
       } catch (err) {
-        messageEl.textContent = "❌ 保存に失敗しました";
-        messageEl.className = "save-error";
         saveBtn.disabled = false;
         saveBtn.textContent = "保存";
+        showToast("❌ 保存に失敗しました", "error");
         console.log("Supabase更新エラー:", err);
       }
     });
   }
 
   // ==== ボタンを「編集」ボタンだけの状態に戻す ====
-  function resetActions(actions, card, valueEl, row, message, messageClass) {
+  function resetActions(actions, card, valueEl, row) {
     actions.innerHTML = "";
 
     const editBtn = document.createElement("button");
     editBtn.className = "btn btn-outline";
     editBtn.textContent = "編集";
     actions.appendChild(editBtn);
-
-    if (message) {
-      const messageEl = document.createElement("span");
-      messageEl.textContent = message;
-      messageEl.className = messageClass || "";
-      actions.appendChild(messageEl);
-      setTimeout(function () {
-        messageEl.remove();
-      }, 3000);
-    }
 
     editBtn.addEventListener("click", function () {
       startEdit(card, valueEl, actions, row);
