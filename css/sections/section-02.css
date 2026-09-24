@@ -55,7 +55,7 @@
   padding: 0;
   margin: 2.25cqw 0 0 1.7cqw;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: 1.2fr 0.95fr 0.95fr 0.95fr 0.95fr;
   gap: 1.2cqw;
 }
 .fit-card {
@@ -187,13 +187,4 @@
 @media (max-width: 419px) {
   .fit-cards { grid-template-columns: 1fr; }
   .fit-card, .fit-card:last-child { grid-column: auto; min-height: 175px; }
-}
-/* カード1文言が長いため、1行目の折り返し崩れを防ぐための個別調整 */
-.fit-card p[data-content-key="section02.card01"] {
-  font-size: 1.33cqw;
-}
-@media (max-width: 767px) {
-  .fit-card p[data-content-key="section02.card01"] {
-    font-size: 12px;
-  }
 }
