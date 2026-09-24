@@ -24,7 +24,7 @@
   mask: url("../../assets/section-01/masks/office-photo-mask.png") center / 100% 100% no-repeat;
 }
 .intro__photo--office img {
-  object-position: 58% 50%; transform: none;
+  object-position: 71% 50%; transform: none;
 }
 /* 背景画像は個別PNG。見せる形だけCSSで切り抜きます。 */
 .intro__blue-shape {
