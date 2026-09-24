@@ -188,12 +188,3 @@
   .fit-cards { grid-template-columns: 1fr; }
   .fit-card, .fit-card:last-child { grid-column: auto; min-height: 175px; }
 }
-/* カード1文言が長いため、1行目の折り返し崩れを防ぐための個別調整 */
-.fit-card p[data-content-key="section02.card01"] {
-  font-size: 1.30cqw;
-}
-@media (max-width: 767px) {
-  .fit-card p[data-content-key="section02.card01"] {
-    font-size: 12px;
-  }
-}
